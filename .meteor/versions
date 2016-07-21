@@ -1,4 +1,5 @@
 allow-deny@1.0.5
+arillo:flow-router-helpers@0.5.2
 autopublish@1.0.7
 autoupdate@1.2.11
 babel-compiler@6.8.5
@@ -13,6 +14,7 @@ caching-compiler@1.0.6
 caching-html-compiler@1.0.6
 callback-hook@1.0.9
 check@1.2.3
+coffeescript@1.1.4
 ddp@1.2.5
 ddp-client@1.2.9
 ddp-common@1.2.6
@@ -71,3 +73,4 @@ underscore@1.0.9
 url@1.0.10
 webapp@1.2.11
 webapp-hashing@1.0.9
+zimme:active-route@2.3.2

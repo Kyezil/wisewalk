@@ -7,3 +7,10 @@ FlowRouter.route('/', {
 		BlazeLayout.render('layout', { main: 'home' });
 	}
 });
+
+FlowRouter.route('/about', {
+	name: 'about',
+	action: () => {
+		BlazeLayout.render('layout', { main: 'about' });
+	}
+})
