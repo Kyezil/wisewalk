@@ -1,9 +1,5 @@
 import { Template } from 'meteor/templating';
 
-Template.home.onCreated(function homeOnCreated() {
-	console.log('created');
-});
-
 const terms = [
 	{ value: "atm", text: 'Atm' },
 	{ value: "bakery", text: 'Bakery'},
@@ -24,6 +20,14 @@ const terms = [
 
 Template.home.helpers({
 	buttons: () => terms
+});
+
+Template.home.events({
+	'click #generate-walk': function clickGenerate(event, templateInstance) {
+		const terms = templateInstance.findAll('.term');
+		const newTerms = terms.filter((el) => el.checked).map((el) => el.name);
+		console.log(newTerms);
+	}
 });
 
 Template.termButton.helpers({
