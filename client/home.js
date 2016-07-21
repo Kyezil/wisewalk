@@ -4,8 +4,11 @@ Template.home.onCreated(function homeOnCreated() {
 	console.log('created');
 });
 
+const terms = ["atm","bakery","bank","book_store","bus_station",
+			"café","convenience_store","gas_station","grocery_or_supermarket",
+			"library","park","parking","pharmacy","shopping_mall","subway_station"];
 Template.home.helpers({
-	'myName': () => {
-		return [{a: 1, b: 'a'},{a: 2, b: 'b'},{a: 3, b: 'c'}];
+	'buttons': () => {
+		return terms;
 	}
 });

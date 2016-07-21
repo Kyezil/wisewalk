@@ -6,19 +6,17 @@
                 <p>Note: You may need to adjust some CSS based on the size of your logo. The default logo size is 150x50 pixels.</p>
             </div>
         </div>
-        {{#each myName}}
-        	<div class="btn btn-default">
-        		{{> termButton}}
-        	</div>
+        {{#each buttons}}
+        	{{> termButton}}
         {{/each}}
     </div>
 </template>
 
 <template name="termButton">
 	<div class="ck-button">
-  	<label>
-   		<input type="checkbox" name = "terms" value="food">
-  		<span>food</span>
-  	</label>
-  </div>
+      		<label>
+        		<input type="checkbox" name = "terms" value="{{a}}">
+        			<span>{{a}}</span>
+      		</label>
+    </div>
 </template>
