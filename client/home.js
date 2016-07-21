@@ -1,4 +1,5 @@
 import { Template } from 'meteor/templating';
+import { Session } from 'meteor/session';
 
 const terms = [
 	{ value: "atm", text: 'Atm' },
@@ -26,7 +27,10 @@ Template.home.events({
 	'click #generate-walk': function clickGenerate(event, templateInstance) {
 		const terms = templateInstance.findAll('.term');
 		const newTerms = terms.filter((el) => el.checked).map((el) => el.name);
-		console.log(newTerms);
+		if (newTerms.length > 0) {
+			Session.set('terms', newTerms);
+			FlowRouter.go('path');
+		}
 	}
 });
 

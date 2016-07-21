@@ -85,4 +85,10 @@ body {
 
 #generate-walk {
     margin-top: 30px;
+    background-color: #efefef;
+    border-color: #828282;
+    color: #222222;
+    font-size: 1.8em;
+    font-weight: bolder;
+    outline: none;
 }

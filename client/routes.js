@@ -13,4 +13,11 @@ FlowRouter.route('/about', {
 	action: () => {
 		BlazeLayout.render('layout', { main: 'about' });
 	}
-})
+});
+
+FlowRouter.route('/path', {
+	name: 'path',
+	action: () => {
+		BlazeLayout.render('layout', { main: 'path' });
+	}
+});

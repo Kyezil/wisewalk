@@ -23,3 +23,4 @@ kadira:flow-router
 twbs:bootstrap
 kadira:blaze-layout
 arillo:flow-router-helpers
+session
