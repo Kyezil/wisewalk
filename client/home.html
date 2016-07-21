@@ -5,9 +5,14 @@
             <h1>I want to find...</h1>
         </div>
     </div>
-    {{#each buttons}}
-    	{{> termButton}}
-    {{/each}}
+    <div class="row">
+	    {{#each buttons}}
+	    	{{> termButton}}
+	    {{/each}}
+	  </div>
+    <div class="row text-left">
+    	<button id="generate-walk" class="btn btn-lg btn-block btn-primary">Generate WiseWalk</button>
+    </div>
    </div>
 </template>
 
