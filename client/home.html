@@ -1,24 +1,24 @@
 <template name="home">
 	<div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1>I want to find...</h1>
-            </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>I want to find...</h1>
         </div>
-        {{#each buttons}}
-        	{{> termButton}}
-        {{/each}}
     </div>
+    {{#each buttons}}
+    	{{> termButton}}
+    {{/each}}
+   </div>
 </template>
 
 <template name="termButton">
 	<div class="ck-button">
-			<label>
-    		<input type="checkbox" name = "terms" value="{{value}}">
-    		<div>
-    		  <span class="map-icon {{icon value}}"></span>
-    			<span class="text">{{text}}</span>
-    		</div>
-    		</label>
+		<label>
+  		<input type="checkbox" name = "terms" value="{{value}}">
+  		<div>
+  		  <span class="map-icon {{icon value}}"></span>
+  			<span class="text">{{text}}</span>
+  		</div>
+		</label>
     </div>
 </template>
