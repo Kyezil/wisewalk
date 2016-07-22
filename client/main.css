@@ -92,3 +92,7 @@ body {
     font-weight: bolder;
     outline: none;
 }
+
+#map {
+    min-height: 400px;
+}
