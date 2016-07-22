@@ -17,22 +17,32 @@ function getStops(types, coords) {
           "Longitude": one.geometry.location.lng
         }
       });
-			if (stops.length === types.length) drawMap(stops, coords);
+			if (stops.length === types.length) {
+				drawMap(stops, coords);
+			}
 		 });
 	});
 }
 
 function drawMap(stops, coords) {
-	const map = new window.google.maps.Map(document.getElementById('map'));
+	const mapHTML = document.getElementById('map');
+	const map = new window.google.maps.Map(mapHTML);
   // new up complex objects before passing them around
   const directionsDisplay = new window.google.maps.DirectionsRenderer();
   const directionsService = new window.google.maps.DirectionsService();
-  console.dir('my_stops', stops);
+  // add current location
+  const currentPos = {
+  	"Geometry": {
+  		"Latitude": coords.latitude,
+  		"Longitude": coords.longitude
+  	}
+  };
+  stops.unshift(currentPos);
   Tour_startUp(stops, coords);
   window.tour.loadMap(map, directionsDisplay);
   window.tour.fitBounds(map);
   if (stops.length > 1) {
-  	window.tour.calcRoute(directionsService, directionsDisplay);
+  	window.tour.calcRoute(directionsService, directionsDisplay, stops);
   }
 }
 
@@ -46,7 +56,7 @@ function Tour_startUp(stops, coords) {
     // map: google map object
     // directionsDisplay: google directionsDisplay object (comes in empty)
     loadMap: function(map, directionsDisplay) {
-    	var myOptions = {
+    	const myOptions = {
     		zoom: 13,
         center: new window.google.maps.LatLng(lat, long), // default to London
         mapTypeId: window.google.maps.MapTypeId.ROADMAP
@@ -55,25 +65,26 @@ function Tour_startUp(stops, coords) {
       directionsDisplay.setMap(map);
     },
     fitBounds: function(map) {
-    	var bounds = new window.google.maps.LatLngBounds();
+    	const bounds = new window.google.maps.LatLngBounds();
       // extend bounds for each record
       jQuery.each(stops, function(key, val) {
-      	var myLatlng = new window.google.maps.LatLng(val.Geometry.Latitude, val.Geometry.Longitude);
+      	const myLatlng = new window.google.maps.LatLng(val.Geometry.Latitude, val.Geometry.Longitude);
       	bounds.extend(myLatlng);
       });
       map.fitBounds(bounds);
     },
-    calcRoute: function(directionsService, directionsDisplay) {
-    	var batches = [];
-      var itemsPerBatch = 10; // google API max = 10 - 1 start, 1 stop, and 8 waypoints
-      var itemsCounter = 0;
-      var wayptsExist = stops.length > 0;
+    calcRoute: function(directionsService, directionsDisplay, realStops) {
+    	const batches = [];
+      const itemsPerBatch = 10; // google API max = 10 - 1 start, 1 stop, and 8 waypoints
+      let itemsCounter = 0;
+      const stops = realStops;
+      let wayptsExist = stops.length > 0;
 
       while (wayptsExist) {
-      	var subBatch = [];
-      	var subitemsCounter = 0;
+      	const subBatch = [];
+      	let subitemsCounter = 0;
 
-      	for (var j = itemsCounter; j < stops.length; j++) {
+      	for (let j = itemsCounter; j < stops.length; j++) {
       		subitemsCounter++;
       		subBatch.push({
       			location: new window.google.maps.LatLng(stops[j].Geometry.Latitude, stops[j].Geometry.Longitude),
@@ -91,19 +102,19 @@ function Tour_startUp(stops, coords) {
         itemsCounter--;
       }
       // now we should have a 2 dimensional array with a list of a list of waypoints
-      var combinedResults;
-      var unsortedResults = [{}]; // to hold the counter and the results themselves as they come back, to later sort
-      var directionsResultsReturned = 0;
-      for (var k = 0; k < batches.length; k++) {
-      	var lastIndex = batches[k].length - 1;
-      	var start = batches[k][0].location;
-      	var end = batches[k][lastIndex].location;
+      let combinedResults;
+      const unsortedResults = [{}]; // to hold the counter and the results themselves as they come back, to later sort
+      let directionsResultsReturned = 0;
+      for (let k = 0; k < batches.length; k++) {
+      	const lastIndex = batches[k].length - 1;
+      	const start = batches[k][0].location;
+      	const end = batches[k][lastIndex].location;
         // trim first and last entry from array
-        var waypts = [];
+        let waypts = [];
         waypts = batches[k];
         waypts.splice(0, 1);
         waypts.splice(waypts.length - 1, 1);
-        var request = {
+        const request = {
         	origin: start,
         	destination: end,
         	waypoints: waypts,
@@ -113,7 +124,7 @@ function Tour_startUp(stops, coords) {
         (function(kk) {
         	directionsService.route(request, function(result, status) {
         		if (status == window.google.maps.DirectionsStatus.OK) {
-        			var unsortedResult = {
+        			const unsortedResult = {
         				order: kk,
         				result: result
         			};
@@ -125,8 +136,8 @@ function Tour_startUp(stops, coords) {
                 unsortedResults.sort(function(a, b) {
                 	return parseFloat(a.order) - parseFloat(b.order);
                 });
-                var count = 0;
-                for (var key in unsortedResults) {
+                let count = 0;
+                for (let key in unsortedResults) {
                 	if (unsortedResults[key].result != null) {
                 		if (unsortedResults.hasOwnProperty(key)) {
                       if (count == 0) // first results. new up the combinedResults object
