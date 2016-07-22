@@ -133,7 +133,7 @@ function getStops(types, coords) {
 				position: new google.maps.LatLng(one.geometry.location.lat, one.geometry.location.lng),
 				icon: {
 					path: MAP_PIN,
-					fillColor: '#00CCBB',
+					fillColor: '#ee9149',
 					fillOpacity: 1,
 					strokeColor: '',
 					strokeWeight: 0
@@ -153,7 +153,7 @@ function drawMap(stops, coords, map) {
 		position: new google.maps.LatLng(coords.latitude, coords.longitude),
 		icon: {
 			path: SQUARE_PIN,
-			fillColor: '#00CCBB',
+			fillColor: '#49c33c',
 			fillOpacity: 1,
 			strokeColor: '',
 			strokeWeight: 0
@@ -222,7 +222,7 @@ function Tour_startUp(stops, coords) {
       		subitemsCounter++;
       		subBatch.push({
       			location: new window.google.maps.LatLng(stops[j].Geometry.Latitude, stops[j].Geometry.Longitude),
-      			stopover: true
+      			stopover: false
       		});
       		if (subitemsCounter == itemsPerBatch)
       			break;
