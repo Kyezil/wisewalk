@@ -1,6 +1,7 @@
 # wisewalk
 Project for HACK GT UPC, team Cfinfos
 
+
 # How to run
 1. Download the zip or clone the repository  
   `$ git clone https://github.com/Kyezil/wisewalk.git`
